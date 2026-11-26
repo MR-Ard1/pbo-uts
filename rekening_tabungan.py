@@ -2,11 +2,15 @@ from rekening import Rekening
 
 
 class Rekening_Tabungan(Rekening):
-    def __init__(self, no_rek, saldo, bunga, saldo_minimum, tgl_buka,
+    bunga = 0.03            # ketentuan produk
+    saldo_minimum = 50_000
+
+    def __init__(self, no_rek, saldo, tgl_buka,
+                 bunga=bunga, saldo_minimum=saldo_minimum,
                  status="aktif"):
         super().__init__("BSA", no_rek, saldo=saldo, status=status)
-        self.__bunga = bunga                    # per tahunnya
-        self.__saldo_minimum = saldo_minimum    # endapan dana
+        self.__bunga = bunga
+        self.__saldo_minimum = saldo_minimum
         self.__tgl_buka = tgl_buka
 
     # getter
@@ -24,7 +28,7 @@ class Rekening_Tabungan(Rekening):
         return self.get_saldo() * self.__bunga / 12 # hitung bunga untuk tiap bulan
 
     def kurang_saldo(self, nominal):
-        if self.get_status() != "aktif" or nominal <= 0:
+        if self.get_status() != "aktif" or not self._nominal_valid(nominal):
             return False
         if self.get_saldo() - nominal < self.__saldo_minimum:
             return False

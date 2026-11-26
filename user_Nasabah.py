@@ -1,6 +1,7 @@
 from user import User
 from transaksi import Transaksi
 from datetime import date
+import math
 
 class User_Nasabah(User):
     admintf = 5000
@@ -64,8 +65,8 @@ class User_Nasabah(User):
         self.__riwayat_transaksi.append(transaksi)
         return True
     
-    def transfer_saldo(self,no_rek,tujuan,nominal):
-        if nominal <= 0:
+    def transfer_saldo(self, no_rek, tujuan, nominal):
+        if not math.isfinite(nominal) or nominal <= 0:
             raise ValueError("Nominal transfer harus lebih dari 0")
 
         asal = self.cari_rekening(no_rek)

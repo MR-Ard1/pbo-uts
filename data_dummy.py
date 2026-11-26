@@ -32,13 +32,13 @@ def _buat_nasabah():
 
 
 def _tab(no_rek, saldo, bunga, tgl):
-    # saldo minimum disamakan 50.000 supaya data seragam
-    return Rekening_Tabungan(no_rek, saldo, bunga, 50_000, tgl)
+    # bunga khusus per rekening; saldo minimum memakai default produk
+    return Rekening_Tabungan(no_rek, saldo, tgl, bunga=bunga)
 
 
-def _giro(no_rek, saldo, cek):
+def _giro(no_rek, saldo):
     # biaya admin 10.000, batas pengambilan 200.000
-    return Rekening_Giro(no_rek, saldo, 10_000, 200_000, cek)
+    return Rekening_Giro(no_rek, saldo)
 
 
 def buat_data():
@@ -50,21 +50,21 @@ def buat_data():
         # budi
         [_tab("1001", 1_000_000, 0.03, date(2025, 1, 10)),
          _tab("1002", 2_500_000, 0.03, date(2025, 2, 11)),
-         _giro("2001", 500_000, "CEK-01")],
+         _giro("2001", 500_000)],
         # siti
         [_tab("1003", 5_000_000, 0.04, date(2025, 1, 20)),
-         _giro("2002", 1_500_000, "CEK-02"),
+         _giro("2002", 1_500_000),
          _tab("1004", 750_000, 0.03, date(2025, 3, 5))],
         # andi
         [_tab("1005", 300_000, 0.02, date(2025, 4, 1)),
-         _giro("2003", 800_000, "CEK-03")],
+         _giro("2003", 800_000)],
         # dewi
         [_tab("1006", 3_200_000, 0.03, date(2025, 2, 25)),
          _tab("1007", 900_000, 0.03, date(2025, 5, 9)),
-         _giro("2004", 2_000_000, "CEK-04")],
+         _giro("2004", 2_000_000)],
         # rizky
         [_tab("1008", 10_000_000, 0.05, date(2025, 6, 15)),
-         _giro("2005", 4_000_000, "CEK-05")],
+         _giro("2005", 4_000_000)],
     ]
 
     # pasangkan: setiap rekening dibuka oleh nasabahnya

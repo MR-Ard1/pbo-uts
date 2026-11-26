@@ -2,12 +2,17 @@ from rekening import Rekening
 
 
 class Rekening_Giro(Rekening):
-    def __init__(self, no_rek, saldo, biaya_admin, batas_pengambilan,
-                 nomor_cek, status="aktif"):
+    BIAYA_ADMIN_DEFAULT = 10_000
+    BATAS_DEFAULT = 200_000
+    __count_cek = 0  
+    def __init__(self, no_rek, saldo,
+                 biaya_admin=BIAYA_ADMIN_DEFAULT, batas_pengambilan=BATAS_DEFAULT,
+                 status="aktif"):
         super().__init__("BCA", no_rek, saldo=saldo, status=status)
+        Rekening_Giro.__count_cek += 1          
         self.__biaya_admin = biaya_admin
         self.__batas_pengambilan = batas_pengambilan
-        self.__nomor_cek = nomor_cek
+        self.__nomor_cek = "CEK-" + str(Rekening_Giro.__count_cek).zfill(5)
 
     # getter
     def get_biaya_admin(self):
